@@ -4,6 +4,8 @@
     Author     : Mario O.
 --%>
 
+<%@include file="WEB-INF/AuthCheck.jspf"%>
+
 <%@page import="usuario.StatusUsuario, bean.NuevoUsuarioDao"%>
 <jsp:useBean id="obj" class="bean.UsuarioBean"/>
 

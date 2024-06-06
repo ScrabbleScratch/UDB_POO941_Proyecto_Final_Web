@@ -4,6 +4,8 @@
     Author     : Mario O.
 --%>
 
+<%@include file="WEB-INF/AuthCheck.jspf"%>
+
 <%@page import="bean.AgregarDao"%>
 <jsp:useBean id="obj" class="bean.AgregarBean"/>
 

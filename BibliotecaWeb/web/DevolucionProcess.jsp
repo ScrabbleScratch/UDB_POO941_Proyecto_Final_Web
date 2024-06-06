@@ -4,6 +4,8 @@
     Author     : Mario O.
 --%>
 
+<%@include file="WEB-INF/AuthCheck.jspf"%>
+
 <%@page import="bean.DevolucionDao"%>
 <jsp:useBean id="obj" class="bean.DevolucionBean"/>
 
