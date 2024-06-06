@@ -1,0 +1,8 @@
+<%
+    if (session.getAttribute("session") != "TRUE") {
+        session.setAttribute("session", "FALSE");
+    %>
+        <jsp:forward page="Login.jsp"/>
+    <%
+    }
+%>
