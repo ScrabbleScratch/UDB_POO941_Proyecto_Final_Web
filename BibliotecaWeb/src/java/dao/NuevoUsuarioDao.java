@@ -3,32 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean;
+package dao;
 
 /**
  *
  * @author Mario O.
  */
 
+import bean.UsuarioBean;
 import database.Conexion;
 
 import java.sql.*;
 
-public class LoginDao {
-    public static String validate(LoginBean bean) {
-        String role = null;
+public class NuevoUsuarioDao {
+    public static boolean validate(UsuarioBean bean) {
         try {
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("SELECT rol FROM usuarios WHERE nombre = ? AND passwd = ?;");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO usuarios(nombre, passwd, rol) VALUES (?, ?, ?);");
             ps.setString(1, bean.getUsuario());
             ps.setString(2, bean.getPass());
+            ps.setString(3, bean.getRol());
             
-            ResultSet rs = ps.executeQuery();
-            if (rs.next())
-                role = rs.getString("rol");
+            int result = ps.executeUpdate();
+            if (result > 0)
+                return true;
         } catch (Exception e) { }
         
-        return role;
+        return false;
     }
 }

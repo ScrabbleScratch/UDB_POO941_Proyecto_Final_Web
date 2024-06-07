@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean;
+package dao;
 
 /**
  *
  * @author Mario O.
  */
 
+import bean.AgregarBean;
 import database.Conexion;
 
 import java.sql.*;
