@@ -21,7 +21,9 @@
     } else {
         out.println("No se pudo iniciar sesion");
 %>
-        <jsp:forward page="Login.jsp"/>
+        <jsp:forward page="Login.jsp">
+            <jsp:param name="logErr" value="No se pudo iniciar sesión" />
+        </jsp:forward>
 <%        
     }
 %>

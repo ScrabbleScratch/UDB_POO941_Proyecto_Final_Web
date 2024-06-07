@@ -4,7 +4,7 @@
     Author     : Mario O.
 --%>
 
-<%@include file="WEB-INF/AuthCheck.jspf"%>
+<%--<%@include file="WEB-INF/AuthCheck.jspf"%>--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="dao.ConsultaDao, java.util.*"%>
 
@@ -137,7 +137,7 @@
                                     %>
                                     <td>
                                         <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
+                                            <input type="hidden" name="categoria" value="obras">
                                             <input type="hidden" name="id" value="<%= row[0] %>">
                                             <input type="hidden" name="titulo" value="<%= row[1] %>">
                                             <button type="submit" class="btn <%= color %> <%= disabled %>">
@@ -182,7 +182,7 @@
                                     %>
                                     <td>
                                         <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
+                                            <input type="hidden" name="categoria" value="revistas">
                                             <input type="hidden" name="id" value="<%= row[0] %>">
                                             <input type="hidden" name="titulo" value="<%= row[1] %>">
                                             <button type="submit" class="btn <%= color %> <%= disabled %>">
@@ -227,7 +227,7 @@
                                     %>
                                     <td>
                                         <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
+                                            <input type="hidden" name="categoria" value="cds">
                                             <input type="hidden" name="id" value="<%= row[0] %>">
                                             <input type="hidden" name="titulo" value="<%= row[1] %>">
                                             <button type="submit" class="btn <%= color %> <%= disabled %>">
@@ -272,7 +272,7 @@
                                     %>
                                     <td>
                                         <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
+                                            <input type="hidden" name="categoria" value="tesis">
                                             <input type="hidden" name="id" value="<%= row[0] %>">
                                             <input type="hidden" name="titulo" value="<%= row[1] %>">
                                             <button type="submit" class="btn <%= color %> <%= disabled %>">

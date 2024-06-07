@@ -43,15 +43,15 @@
             </div>
             <div class="form-group">
                 <label for="prestamos">Préstamos máximos</label>
-                <input type="number" class="form-control" id="prestamos" name="prestamos" value="<%= obj.getPrestamos()%>" required>
+                <input type="number" min="0" step="1" class="form-control" id="prestamos" name="prestamos" value="<%= obj.getPrestamos()%>" required>
             </div>
             <div class="form-group">
                 <label for="dias">Cantidad de días máxima</label>
-                <input type="number" class="form-control" id="dias" name="dias" value="<%= obj.getDias()%>" required>
+                <input type="number" min="0" step="1" class="form-control" id="dias" name="dias" value="<%= obj.getDias()%>" required>
             </div>
             <div class="form-group">
                 <label for="mora">Mora diaria</label>
-                <input type="number" class="form-control" id="mora" name="mora" value="<%= obj.getMora()%>" required>
+                <input type="number" min="0.00" step="0.01" class="form-control" id="mora" name="mora" value="<%= obj.getMora()%>" required>
             </div>
             <input type="hidden" name="id" value="<%= obj.getId()%>" required>
             <button type="submit" class="btn btn-primary">Guardar parámetros</button>

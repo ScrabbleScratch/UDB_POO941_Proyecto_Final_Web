@@ -10,9 +10,18 @@
 
 <%
     StatusUsuario status = StatusUsuario.usuarioStatus(request.getParameter("usuario"));
+    if (status == null) {
+    %>
+        <jsp:forward page="Mora.jsp">
+            <jsp:param name="moraErr" value="El usuario indicado no existe" />
+        </jsp:forward>
+    <%
+    } else {
+    %>
+        <jsp:forward page="Mora.jsp">
+            <jsp:param name="activos" value='<%= status.prestamosActivos %>' />
+            <jsp:param name="mora" value='<%= status.moraAcumulada.get("total")[1] %>' />
+        </jsp:forward>
+    <%
+    }
 %>
-
-<jsp:forward page="Mora.jsp">
-    <jsp:param name="activos" value='<%= status != null ? status.prestamosActivos : "" %>' />
-    <jsp:param name="mora" value='<%= status != null ? status.moraAcumulada.get("total")[1] : "" %>' />
-</jsp:forward>

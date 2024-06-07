@@ -37,19 +37,8 @@
                 <label for="usuario">Usuario</label>
                 <input type="text" class="form-control" id="usuario" name="usuario" value="${param.usuario}" required>
             </div>
-            <%
-                if (Boolean.parseBoolean(request.getParameter("mora"))) {
-                %>
-                    <p class="text-danger">El usuario tiene mora pendiente</p>
-                <%
-                }
-
-                if (Boolean.parseBoolean(request.getParameter("limite"))) {
-                %>
-                    <p class="text-danger">El usuario ha alcanzado el límite de préstamos</p>
-                <%
-                }
-            %>
+            <p class="text-danger">${param.prsErr}</p>
+            <p class="text-danger">${param.moraErr}</p>
             <input type="hidden" name="id" value="${param.id}" />
             <button type="submit" class="btn btn-primary">Validar préstamo</button>
         </form>

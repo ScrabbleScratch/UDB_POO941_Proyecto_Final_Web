@@ -29,6 +29,7 @@
                 <label for="usuario">Usuario</label>
                 <input type="text" class="form-control" id="usuario" name="usuario" value="${param.usuario}" required>
             </div>
+            <p class="text-danger">${param.moraErr}</p>
             <button type="submit" class="btn btn-primary">Revisar mora</button>
             <div class="form-group">
                 <label for="activos">Préstamos activos</label>

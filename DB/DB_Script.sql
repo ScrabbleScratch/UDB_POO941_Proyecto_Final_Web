@@ -78,7 +78,8 @@ CREATE TABLE `libros` (
   `unidades` int DEFAULT NULL,
   `estante` varchar(10) DEFAULT NULL,
   `palabras_clave` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`titulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `libros` WRITE;
@@ -100,7 +101,8 @@ CREATE TABLE `obras` (
   `unidades` int DEFAULT NULL,
   `estante` varchar(10) DEFAULT NULL,
   `palabras_clave` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`titulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `obras` WRITE;
@@ -121,7 +123,8 @@ CREATE TABLE `revistas` (
   `unidades` int DEFAULT NULL,
   `estante` varchar(10) DEFAULT NULL,
   `palabras_clave` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`titulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `revistas` WRITE;
@@ -140,7 +143,8 @@ CREATE TABLE `cds` (
   `duracion` int DEFAULT NULL,
   `unidades` int DEFAULT NULL,
   `estante` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`titulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `cds` WRITE;
@@ -159,7 +163,8 @@ CREATE TABLE `tesis` (
   `paginas` int DEFAULT NULL,
   `unidades` int DEFAULT NULL,
   `estante` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`titulo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `tesis` WRITE;

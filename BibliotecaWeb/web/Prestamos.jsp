@@ -6,7 +6,7 @@
 
 <%@include file="WEB-INF/AuthCheck.jspf"%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="items.ConsultaDao, java.util.*"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="dao.ConsultaDao, java.util.*"%>
 
 <%
     String buscar = request.getParameter("buscar") == null ? "" : request.getParameter("buscar");

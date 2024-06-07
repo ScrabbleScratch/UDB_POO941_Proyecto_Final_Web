@@ -6,7 +6,7 @@
 
 <%@include file="WEB-INF/AuthCheck.jspf"%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="java.time.*"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="publicacion">Año de publicación</label>
-                            <input type="number" class="form-control" id="publicacion" name="publicacion" placeholder="Año de publicación del libro">
+                            <input type="number" min="0" max="<%= Year.now() %>" class="form-control" id="publicacion" name="publicacion" placeholder="Año de publicación del libro">
                         </div>
                         <div class="form-group">
                             <label for="edicion">Edición</label>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label for="unidades">Unidades</label>
-                            <input type="number" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
+                            <input type="number" min="1" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
                         </div>
                         <div class="form-group">
                             <label for="estante">Estante</label>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="form-group">
                             <label for="publicacion">Año de publicación</label>
-                            <input type="number" class="form-control" id="publicacion" name="publicacion" placeholder="Año de publicación de la obra">
+                            <input type="number" min="0" max="<%= Year.now() %>" class="form-control" id="publicacion" name="publicacion" placeholder="Año de publicación de la obra">
                         </div>
                         <div class="form-group">
                             <label for="edicion">Edición</label>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="form-group">
                             <label for="unidades">Unidades</label>
-                            <input type="number" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
+                            <input type="number" min="1" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
                         </div>
                         <div class="form-group">
                             <label for="estante">Estante</label>
@@ -174,11 +174,11 @@
                         </div>
                         <div class="form-group">
                             <label for="edicion">Volúmen</label>
-                            <input type="number" class="form-control" id="edicion" name="edicion" placeholder="Volúmen de la revista">
+                            <input type="number" min="1" class="form-control" id="edicion" name="edicion" placeholder="Volúmen de la revista">
                         </div>
                         <div class="form-group">
                             <label for="unidades">Unidades</label>
-                            <input type="number" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
+                            <input type="number" min="1" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
                         </div>
                         <div class="form-group">
                             <label for="estante">Estante</label>
@@ -208,15 +208,15 @@
                         </div>
                         <div class="form-group">
                             <label for="publicacion">Año de publicación</label>
-                            <input type="number" class="form-control" id="publicacion" name="publicacion" placeholder="Año de publicación del CD">
+                            <input type="number" min="0" max="<%= Year.now() %>" class="form-control" id="publicacion" name="publicacion" placeholder="Año de publicación del CD">
                         </div>
                         <div class="form-group">
                             <label for="duracion">Duración</label>
-                            <input type="number" class="form-control" id="duracion" name="duracion" placeholder="Duración del CD">
+                            <input type="number" min="0" class="form-control" id="duracion" name="duracion" placeholder="Duración del CD">
                         </div>
                         <div class="form-group">
                             <label for="unidades">Unidades</label>
-                            <input type="number" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
+                            <input type="number" min="1" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
                         </div>
                         <div class="form-group">
                             <label for="estante">Estante</label>
@@ -246,11 +246,11 @@
                         </div>
                         <div class="form-group">
                             <label for="duracion">Páginas</label>
-                            <input type="number" class="form-control" id="duracion" name="duracion" placeholder="Páginas de la tesis">
+                            <input type="number" min="0" class="form-control" id="duracion" name="duracion" placeholder="Páginas de la tesis">
                         </div>
                         <div class="form-group">
                             <label for="unidades">Unidades</label>
-                            <input type="number" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
+                            <input type="number" min="1" class="form-control" id="unidades" name="unidades" placeholder="Unidades disponibles" required>
                         </div>
                         <div class="form-group">
                             <label for="estante">Estante</label>

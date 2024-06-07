@@ -13,11 +13,17 @@
 
 <%
     StatusUsuario status = StatusUsuario.usuarioStatus(obj.getUsuario());
-    if (status == null || status.tieneMora || status.limiteExcedido) {
+    if (status == null) {
     %>
         <jsp:forward page="Prestar.jsp">
-            <jsp:param name="mora" value='<%= status.tieneMora %>' />
-            <jsp:param name="activos" value='<%= status.limiteExcedido %>' />
+            <jsp:param name="prsErr" value="El usuario indicado no existe" />
+        </jsp:forward>
+    <%
+    } else if (status.tieneMora || status.limiteExcedido) {
+    %>
+        <jsp:forward page="Prestar.jsp">
+            <jsp:param name="prsErr" value='<%= status.limiteExcedido ? "El usuario no puede prestar mas ítems" : "" %>' />
+            <jsp:param name="moraErr" value='<%= status.tieneMora ? "El usuario tiene mora pendiente" : "" %>' />
         </jsp:forward>
     <%
     }

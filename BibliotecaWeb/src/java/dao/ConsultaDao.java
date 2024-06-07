@@ -11,6 +11,7 @@ package dao;
  * @author Mario
  */
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -22,8 +23,10 @@ import database.Conexion;
 public class ConsultaDao {
     public static List<String[]> dataCategoria(String category) {
         try {
+            Connection con = Conexion.establecerConexion();
+            
             String consulta = "SELECT * FROM " + category + "_consulta;";
-            PreparedStatement ps = Conexion.establecerConexion().prepareStatement(consulta);
+            PreparedStatement ps = con.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
             
             ResultSetMetaData rsm = rs.getMetaData();
@@ -53,13 +56,15 @@ public class ConsultaDao {
     
     public static List<String[]> prestamosCategoria(String category, String usuario) {
         try {
+            Connection con = Conexion.establecerConexion();
+            
             String consulta;
             if (usuario.isEmpty()) {
                 consulta = "SELECT * FROM " + category + "_prestamos WHERE Activo = 'SI';";
             } else {
                 consulta = "SELECT * FROM " + category + "_prestamos WHERE Activo = 'SI' AND Usuario = '" + usuario + "';";
             }
-            PreparedStatement ps = Conexion.establecerConexion().prepareStatement(consulta);
+            PreparedStatement ps = con.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
             
             ResultSetMetaData rsm = rs.getMetaData();
