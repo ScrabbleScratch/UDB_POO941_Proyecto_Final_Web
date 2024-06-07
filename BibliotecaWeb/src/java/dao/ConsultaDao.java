@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import database.Conexion;
 
 public class ConsultaDao {
-    public static List<String[]> dataCategoria(String category) {
+    public static List<String[]> dataCategoria(String categoria) {
         try {
             Connection con = Conexion.establecerConexion();
             
-            String consulta = "SELECT * FROM " + category + "_consulta;";
-            PreparedStatement ps = con.prepareStatement(consulta);
+            PreparedStatement ps = con.prepareStatement("CALL consultar_items(?);");
+            ps.setString(1, categoria);
             ResultSet rs = ps.executeQuery();
             
             ResultSetMetaData rsm = rs.getMetaData();
@@ -54,17 +54,13 @@ public class ConsultaDao {
         return null;
     }
     
-    public static List<String[]> prestamosCategoria(String category, String usuario) {
+    public static List<String[]> prestamosCategoria(String categoria, String usuario) {
         try {
             Connection con = Conexion.establecerConexion();
             
-            String consulta;
-            if (usuario.isEmpty()) {
-                consulta = "SELECT * FROM " + category + "_prestamos WHERE Activo = 'SI';";
-            } else {
-                consulta = "SELECT * FROM " + category + "_prestamos WHERE Activo = 'SI' AND Usuario = '" + usuario + "';";
-            }
-            PreparedStatement ps = con.prepareStatement(consulta);
+            PreparedStatement ps = con.prepareStatement("CALL consultar_prestamos(?, ?);");
+            ps.setString(1, categoria);
+            ps.setString(2, usuario);
             ResultSet rs = ps.executeQuery();
             
             ResultSetMetaData rsm = rs.getMetaData();

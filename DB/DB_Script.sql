@@ -234,8 +234,8 @@ CREATE TABLE `prestamos_tesis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- VISTAS
-DROP VIEW IF EXISTS libros_consulta;
-CREATE VIEW libros_consulta
+DROP VIEW IF EXISTS libros_consulta_view;
+CREATE VIEW libros_consulta_view
 AS
 	SELECT
 		I.id AS 'ID',
@@ -250,12 +250,15 @@ AS
 		COUNT(P.id) AS 'Prestados',
 		(unidades - COUNT(P.id)) AS 'Disponibles'
 	FROM libros AS I
-	LEFT JOIN prestamos_libros AS P ON P.item_id = I.id
-	WHERE P.fecha_devuelto IS NULL
+	LEFT JOIN (
+		SELECT id, item_id
+		FROM prestamos_libros
+		WHERE fecha_devuelto IS NULL
+	) AS P ON P.item_id = I.id
 	GROUP BY I.id;
 
-DROP VIEW IF EXISTS obras_consulta;
-CREATE VIEW obras_consulta
+DROP VIEW IF EXISTS obras_consulta_view;
+CREATE VIEW obras_consulta_view
 AS
 	SELECT
 		I.id AS 'ID',
@@ -270,12 +273,15 @@ AS
 		COUNT(P.id) AS 'Prestados',
 		(unidades - COUNT(P.id)) AS 'Disponibles'
 	FROM obras AS I
-	LEFT JOIN prestamos_obras AS P ON P.item_id = I.id
-	WHERE P.fecha_devuelto IS NULL
+	LEFT JOIN (
+		SELECT id, item_id
+		FROM prestamos_obras
+		WHERE fecha_devuelto IS NULL
+	) AS P ON P.item_id = I.id
 	GROUP BY I.id;
 
-DROP VIEW IF EXISTS revistas_consulta;
-CREATE VIEW revistas_consulta
+DROP VIEW IF EXISTS revistas_consulta_view;
+CREATE VIEW revistas_consulta_view
 AS
 	SELECT
 		I.id AS 'ID',
@@ -289,12 +295,15 @@ AS
 		COUNT(P.id) AS 'Prestados',
 		(unidades - COUNT(P.id)) AS 'Disponibles'
 	FROM revistas AS I
-	LEFT JOIN prestamos_revistas AS P ON P.item_id = I.id
-	WHERE P.fecha_devuelto IS NULL
+	LEFT JOIN (
+		SELECT id, item_id
+		FROM prestamos_revistas
+		WHERE fecha_devuelto IS NULL
+	) AS P ON P.item_id = I.id
 	GROUP BY I.id;
 
-DROP VIEW IF EXISTS cds_consulta;
-CREATE VIEW cds_consulta
+DROP VIEW IF EXISTS cds_consulta_view;
+CREATE VIEW cds_consulta_view
 AS
 	SELECT
 		I.id AS 'ID',
@@ -308,12 +317,15 @@ AS
 		COUNT(P.id) AS 'Prestados',
 		(unidades - COUNT(P.id)) AS 'Disponibles'
 	FROM cds AS I
-	LEFT JOIN prestamos_cds AS P ON P.item_id = I.id
-	WHERE P.fecha_devuelto IS NULL
+	LEFT JOIN (
+		SELECT id, item_id
+		FROM prestamos_cds
+		WHERE fecha_devuelto IS NULL
+	) AS P ON P.item_id = I.id
 	GROUP BY I.id;
 
-DROP VIEW IF EXISTS tesis_consulta;
-CREATE VIEW tesis_consulta
+DROP VIEW IF EXISTS tesis_consulta_view;
+CREATE VIEW tesis_consulta_view
 AS
 	SELECT
 		I.id AS 'ID',
@@ -327,12 +339,15 @@ AS
 		COUNT(P.id) AS 'Prestados',
 		(unidades - COUNT(P.id)) AS 'Disponibles'
 	FROM tesis AS I
-	LEFT JOIN prestamos_tesis AS P ON P.item_id = I.id
-	WHERE P.fecha_devuelto IS NULL
+	LEFT JOIN (
+		SELECT id, item_id
+		FROM prestamos_tesis
+		WHERE fecha_devuelto IS NULL
+	) AS P ON P.item_id = I.id
 	GROUP BY I.id;
 
-DROP VIEW IF EXISTS libros_prestamos;
-CREATE VIEW libros_prestamos
+DROP VIEW IF EXISTS libros_prestamos_view;
+CREATE VIEW libros_prestamos_view
 AS
 	SELECT
 		P.id AS 'ID',
@@ -341,15 +356,14 @@ AS
 		P.fecha_prestamo AS 'Prestado',
 		IF (P.fecha_devuelto IS NULL, 'NO DEVUELTO', P.fecha_devuelto) AS 'Devuelto',
 		IF (fecha_devuelto IS NULL, 'SI', 'NO') AS 'Activo',
-		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * RP.mora_diaria, 0) AS 'Mora'
+		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * R.mora_diaria, 0) AS 'Mora'
 	FROM prestamos_libros AS P
 	LEFT JOIN libros AS I ON I.id = P.item_id
 	LEFT JOIN usuarios AS U ON U.id = P.usuario
-	LEFT JOIN roles AS R ON R.id = U.rol
-	LEFT JOIN rolparams AS RP ON RP.rol = R.id;
+	LEFT JOIN rolparams AS R ON R.rol = U.rol;
 
-DROP VIEW IF EXISTS obras_prestamos;
-CREATE VIEW obras_prestamos
+DROP VIEW IF EXISTS obras_prestamos_view;
+CREATE VIEW obras_prestamos_view
 AS
 	SELECT
 		P.id AS 'ID',
@@ -358,15 +372,14 @@ AS
 		P.fecha_prestamo AS 'Prestado',
 		IF (P.fecha_devuelto IS NULL, 'NO DEVUELTO', P.fecha_devuelto) AS 'Devuelto',
 		IF (fecha_devuelto IS NULL, 'SI', 'NO') AS 'Activo',
-		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * RP.mora_diaria, 0) AS 'Mora'
+		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * R.mora_diaria, 0) AS 'Mora'
 	FROM prestamos_obras AS P
 	LEFT JOIN obras AS I ON I.id = P.item_id
 	LEFT JOIN usuarios AS U ON U.id = P.usuario
-	LEFT JOIN roles AS R ON R.id = U.rol
-	LEFT JOIN rolparams AS RP ON RP.rol = R.id;
+	LEFT JOIN rolparams AS R ON R.rol = U.rol;
 
-DROP VIEW IF EXISTS revistas_prestamos;
-CREATE VIEW revistas_prestamos
+DROP VIEW IF EXISTS revistas_prestamos_view;
+CREATE VIEW revistas_prestamos_view
 AS
 	SELECT
 		P.id AS 'ID',
@@ -375,15 +388,14 @@ AS
 		P.fecha_prestamo AS 'Prestado',
 		IF (P.fecha_devuelto IS NULL, 'NO DEVUELTO', P.fecha_devuelto) AS 'Devuelto',
 		IF (fecha_devuelto IS NULL, 'SI', 'NO') AS 'Activo',
-		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * RP.mora_diaria, 0) AS 'Mora'
+		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * R.mora_diaria, 0) AS 'Mora'
 	FROM prestamos_revistas AS P
 	LEFT JOIN revistas AS I ON I.id = P.item_id
 	LEFT JOIN usuarios AS U ON U.id = P.usuario
-	LEFT JOIN roles AS R ON R.id = U.rol
-	LEFT JOIN rolparams AS RP ON RP.rol = R.id;
+	LEFT JOIN rolparams AS R ON R.rol = U.rol;
 
-DROP VIEW IF EXISTS cds_prestamos;
-CREATE VIEW cds_prestamos
+DROP VIEW IF EXISTS cds_prestamos_view;
+CREATE VIEW cds_prestamos_view
 AS
 	SELECT
 		P.id AS 'ID',
@@ -392,15 +404,14 @@ AS
 		P.fecha_prestamo AS 'Prestado',
 		IF (P.fecha_devuelto IS NULL, 'NO DEVUELTO', P.fecha_devuelto) AS 'Devuelto',
 		IF (fecha_devuelto IS NULL, 'SI', 'NO') AS 'Activo',
-		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * RP.mora_diaria, 0) AS 'Mora'
+		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * R.mora_diaria, 0) AS 'Mora'
 	FROM prestamos_cds AS P
 	LEFT JOIN cds AS I ON I.id = P.item_id
 	LEFT JOIN usuarios AS U ON U.id = P.usuario
-	LEFT JOIN roles AS R ON R.id = U.rol
-	LEFT JOIN rolparams AS RP ON RP.rol = R.id;
+	LEFT JOIN rolparams AS R ON R.rol = U.rol;
 
-DROP VIEW IF EXISTS tesis_prestamos;
-CREATE VIEW tesis_prestamos
+DROP VIEW IF EXISTS tesis_prestamos_view;
+CREATE VIEW tesis_prestamos_view
 AS
 	SELECT
 		P.id AS 'ID',
@@ -409,9 +420,213 @@ AS
 		P.fecha_prestamo AS 'Prestado',
 		IF (P.fecha_devuelto IS NULL, 'NO DEVUELTO', P.fecha_devuelto) AS 'Devuelto',
 		IF (fecha_devuelto IS NULL, 'SI', 'NO') AS 'Activo',
-		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * RP.mora_diaria, 0) AS 'Mora'
+		IF (DATEDIFF(CURDATE(), P.fecha_devolucion) > 0, DATEDIFF(CURDATE(), P.fecha_devolucion) * R.mora_diaria, 0) AS 'Mora'
 	FROM prestamos_tesis AS P
 	LEFT JOIN tesis AS I ON I.id = P.item_id
 	LEFT JOIN usuarios AS U ON U.id = P.usuario
-	LEFT JOIN roles AS R ON R.id = U.rol
-	LEFT JOIN rolparams AS RP ON RP.rol = R.id;
+	LEFT JOIN rolparams AS R ON R.rol = U.rol;
+
+-- STORED PROCEDURES
+
+-- VALIDAR USUARIO
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS validar_usuario $$
+CREATE PROCEDURE validar_usuario (
+	IN usuario VARCHAR(100),
+    IN pass VARCHAR(100)
+)
+BEGIN
+	SELECT rol
+    FROM usuarios
+    WHERE CAST(nombre AS BINARY) = usuario AND CAST(passwd AS BINARY) = pass;
+END $$
+
+DELIMITER ;
+
+-- MORA ACUMULADA DE USUARIO
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS mora_usuario $$
+CREATE PROCEDURE mora_usuario (
+	IN categoria VARCHAR(25),
+	IN usuario VARCHAR(100)
+)
+BEGIN
+	SET @usuario = usuario;
+    
+	SET @qry = CONCAT("
+	SELECT
+		COUNT(id) AS prestamos_pendientes,
+		IF(SUM(mora_acumulada) > 0, SUM(mora_acumulada), 0) AS mora_total
+	FROM (
+		SELECT P.id, P.fecha_devolucion, R.mora_diaria,
+			IF(DATEDIFF(CURDATE(), fecha_devolucion) > 0, DATEDIFF(CURDATE(), fecha_devolucion) * mora_diaria, 0) AS mora_acumulada
+		FROM prestamos_", categoria, " AS P
+		JOIN usuarios AS U ON U.id = P.usuario
+		JOIN rolparams AS R ON R.rol = U.rol
+		JOIN libros AS I ON I.id = P.item_id
+		WHERE U.nombre = ? AND P.fecha_devuelto IS NULL
+	) AS P
+	WHERE P.mora_acumulada > 0;
+    ");
+    PREPARE stm FROM @qry;
+	EXECUTE stm USING @usuario;
+	DEALLOCATE PREPARE stm;
+END $$
+
+DELIMITER ;
+
+-- CONSULTAR ITEMS
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS consultar_items $$
+CREATE PROCEDURE consultar_items (
+	IN categoria VARCHAR(25)
+)
+BEGIN
+	SET	@qry = CONCAT('SELECT * FROM ', categoria, '_consulta_view');
+	PREPARE stm FROM @qry;
+	EXECUTE stm;
+	DEALLOCATE PREPARE stm;
+END $$
+
+DELIMITER ;
+
+-- REGISTRAR PRESTAMO
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS registrar_prestamo $$
+CREATE PROCEDURE registrar_prestamo (
+	IN categoria VARCHAR(25),
+    IN nombre VARCHAR(100),
+    IN id INT
+)
+BEGIN
+    SET @id = id;
+    
+    SELECT U.id, max_dias
+    INTO @usuario, @dias
+    FROM usuarios AS U
+    LEFT JOIN rolparams AS R ON R.rol = U.rol
+    WHERE U.nombre = nombre;
+    
+    SET @devolucion = DATE_ADD(CURDATE(), INTERVAL @dias DAY);
+    
+	SET	@qry = CONCAT('INSERT INTO prestamos_', categoria, ' (usuario, fecha_devolucion, item_id) VALUES (?, ?, ?);');
+	PREPARE stm FROM @qry;
+	EXECUTE stm USING @usuario, @devolucion, @id;
+	DEALLOCATE PREPARE stm;
+END $$
+
+DELIMITER ;
+
+-- CONSULTAR PRESTAMOS
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS consultar_prestamos $$
+CREATE PROCEDURE consultar_prestamos (
+	IN categoria VARCHAR(25),
+    IN nombre VARCHAR(100)
+)
+BEGIN
+    SET @nombre = nombre;
+    
+    IF (nombre IS NULL OR LENGTH(TRIM(nombre)) = 0) THEN
+		SET	@qry = CONCAT('SELECT * FROM ', categoria, '_prestamos_view WHERE Activo = \'SI\'');
+		PREPARE stm FROM @qry;
+		EXECUTE stm;
+		DEALLOCATE PREPARE stm;
+	ELSE
+		SET	@qry = CONCAT('SELECT * FROM ', categoria, '_prestamos_view WHERE Activo = \'SI\' AND Usuario = ?');
+		PREPARE stm FROM @qry;
+		EXECUTE stm USING @nombre;
+		DEALLOCATE PREPARE stm;
+	END IF;
+END $$
+
+DELIMITER ;
+
+-- DEVOLVER ITEM
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS devolver_item $$
+CREATE PROCEDURE devolver_item (
+	IN categoria VARCHAR(25),
+    IN id INT,
+    IN devuelto TIMESTAMP
+)
+BEGIN
+	SET @id = id;
+    SET @devuelto = devuelto;
+    SET	@qry = CONCAT('UPDATE prestamos_', categoria, ' SET fecha_devuelto = ? WHERE id = ?');
+    
+    PREPARE stm FROM @qry;
+    EXECUTE stm USING @devuelto, @id;
+    DEALLOCATE PREPARE stm;
+END $$
+
+DELIMITER ;
+
+-- ELIMINAR USUARIO
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS crear_usuario $$
+CREATE PROCEDURE crear_usuario (
+	IN usuario VARCHAR(100),
+    IN pass VARCHAR(100),
+    IN rol INT
+)
+BEGIN
+	INSERT INTO usuarios(nombre, passwd, rol)
+    VALUES (usuario, pass, rol);
+END $$
+
+DELIMITER ;
+
+-- ELIMINAR USUARIO
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS eliminar_usuario $$
+CREATE PROCEDURE eliminar_usuario (
+	IN usuario VARCHAR(100)
+)
+BEGIN
+	DELETE FROM usuarios WHERE nombre = usuario;
+END $$
+
+DELIMITER ;
+
+-- CONSULTAR ROL
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS consultar_rol $$
+CREATE PROCEDURE consultar_rol (
+	IN id INT
+)
+BEGIN
+	SELECT *
+    FROM roles AS R
+    LEFT JOIN rolparams AS P ON P.rol = R.id
+    WHERE R.id = id;
+END $$
+
+DELIMITER ;
+
+-- ACTUALIZAR ROL
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS actualizar_rol $$
+CREATE PROCEDURE actualizar_rol (
+	IN id INT,
+    IN prestamos INT,
+    IN dias INT,
+    IN mora FLOAT
+)
+BEGIN
+	UPDATE rolparams
+    SET max_prestamos = prestamos, max_dias = dias, mora_diaria = mora
+    WHERE rol = id;
+END $$
+
+DELIMITER ;

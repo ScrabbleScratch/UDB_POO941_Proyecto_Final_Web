@@ -20,13 +20,11 @@ public class RolDao {
         try {
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("UPDATE rolparams "
-                    + "SET max_prestamos = ?, max_dias = ?, mora_diaria = ? "
-                    + "WHERE rol = ?;");
-            ps.setString(1, bean.getPrestamos());
-            ps.setString(2, bean.getDias());
-            ps.setString(3, bean.getMora());
-            ps.setString(4, bean.getId());
+            PreparedStatement ps = con.prepareStatement("CALL actualizar_rol(?, ?, ?, ?);");
+            ps.setString(1, bean.getId());
+            ps.setString(2, bean.getPrestamos());
+            ps.setString(3, bean.getDias());
+            ps.setString(4, bean.getMora());
             
             int result = ps.executeUpdate();
             
@@ -41,9 +39,7 @@ public class RolDao {
         try {
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM roles AS R "
-                    + "LEFT JOIN rolparams AS P ON P.rol = R.id "
-                    + "WHERE R.id = ?;");
+            PreparedStatement ps = con.prepareStatement("CALL consultar_rol(?);");
             ps.setString(1, bean.getId());
             
             ResultSet rs = ps.executeQuery();

@@ -19,7 +19,7 @@ public class EliminarUsuarioDao {
         try {
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("DELETE FROM usuarios WHERE nombre = ?;");
+            PreparedStatement ps = con.prepareStatement("CALL eliminar_usuario(?);");
             ps.setString(1, usuario);
             
             int result = ps.executeUpdate();

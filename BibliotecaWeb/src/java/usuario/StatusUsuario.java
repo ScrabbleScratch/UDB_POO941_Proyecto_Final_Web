@@ -88,21 +88,9 @@ public class StatusUsuario {
             Map<String, String[]> results = new HashMap<>();
             String[] total = new String[] { "0", "0" };
             for (String category : new String[] { "libros", "obras", "revistas", "cds", "tesis" }) {
-                String consulta = "SELECT "
-                            + "COUNT(id) AS prestamos_pendientes, "
-                            + "IF(SUM(mora_acumulada) > 0, SUM(mora_acumulada), 0) AS mora_total "
-                        + "FROM ( "
-                            + "SELECT P.id, P.fecha_devolucion, R.mora_diaria, "
-                                + "IF(DATEDIFF(CURDATE(), fecha_devolucion) > 0, DATEDIFF(CURDATE(), fecha_devolucion) * mora_diaria, 0) AS mora_acumulada "
-                            + "FROM prestamos_" + category + " AS P "
-                            + "JOIN usuarios AS U ON U.id = P.usuario "
-                            + "JOIN rolparams AS R ON R.rol = U.rol "
-                            + "JOIN libros AS I ON I.id = P.item_id "
-                            + "WHERE U.nombre = ? AND P.fecha_devuelto IS NULL "
-                        + ") AS P "
-                        + "WHERE P.mora_acumulada > 0;";
-                PreparedStatement ps = Conexion.establecerConexion().prepareStatement(consulta);
-                ps.setString(1, username);
+                PreparedStatement ps = Conexion.establecerConexion().prepareStatement("CALL mora_usuario(?, ?);");
+                ps.setString(1, category);
+                ps.setString(2, username);
                 ResultSet rs = ps.executeQuery();
                 
                 String[] catFee = new String[2];

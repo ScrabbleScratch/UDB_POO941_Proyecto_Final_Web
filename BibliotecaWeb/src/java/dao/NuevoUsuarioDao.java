@@ -20,7 +20,7 @@ public class NuevoUsuarioDao {
         try {
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("INSERT INTO usuarios(nombre, passwd, rol) VALUES (?, ?, ?);");
+            PreparedStatement ps = con.prepareStatement("CALL crear_usuario(?, ?, ?);");
             ps.setString(1, bean.getUsuario());
             ps.setString(2, bean.getPass());
             ps.setString(3, bean.getRol());

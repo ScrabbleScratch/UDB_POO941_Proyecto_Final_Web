@@ -21,7 +21,7 @@ public class LoginDao {
         try {
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("SELECT rol FROM usuarios WHERE nombre = ? AND passwd = ?;");
+            PreparedStatement ps = con.prepareStatement("CALL validar_usuario(?, ?);");
             ps.setString(1, bean.getUsuario());
             ps.setString(2, bean.getPass());
             

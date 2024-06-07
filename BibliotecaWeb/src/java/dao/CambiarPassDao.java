@@ -20,9 +20,9 @@ public class CambiarPassDao {
         try {
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("UPDATE usuarios SET passwd = ? WHERE nombre = ?;");
-            ps.setString(1, bean.getPass());
-            ps.setString(2, bean.getUsuario());
+            PreparedStatement ps = con.prepareStatement("CALL cambiar_pass(?, ?);");
+            ps.setString(1, bean.getUsuario());
+            ps.setString(2, bean.getPass());
             
             int result = ps.executeUpdate();
             

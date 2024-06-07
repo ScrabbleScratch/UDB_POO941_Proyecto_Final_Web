@@ -24,10 +24,10 @@ public class DevolucionDao {
             
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("UPDATE prestamos_" + bean.getCategoria() + " "
-                    + "SET fecha_devuelto = ? WHERE id = ?;");
-            ps.setString(1, dtf.format(LocalDateTime.now()));
+            PreparedStatement ps = con.prepareStatement("CALL devolver_item(?, ?, ?);");
+            ps.setString(1, bean.getCategoria());
             ps.setString(2, bean.getId());
+            ps.setString(3, dtf.format(LocalDateTime.now()));
             
             int resultado = ps.executeUpdate();
             

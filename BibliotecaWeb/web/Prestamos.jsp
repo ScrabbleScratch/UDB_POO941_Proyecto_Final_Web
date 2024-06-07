@@ -152,7 +152,7 @@
                                     %>
                                     <td>
                                         <form action="Devolucion.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
+                                            <input type="hidden" name="categoria" value="obras">
                                             <input type="hidden" name="id" value="<%= row[0] %>">
                                             <input type="hidden" name="titulo" value="<%= row[1] %>">
                                             <input type="hidden" name="usuario" value="<%= row[2] %>">
@@ -199,7 +199,7 @@
                                     %>
                                     <td>
                                         <form action="Devolucion.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
+                                            <input type="hidden" name="categoria" value="revistas">
                                             <input type="hidden" name="id" value="<%= row[0] %>">
                                             <input type="hidden" name="titulo" value="<%= row[1] %>">
                                             <input type="hidden" name="usuario" value="<%= row[2] %>">
@@ -246,7 +246,7 @@
                                     %>
                                     <td>
                                         <form action="Devolucion.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
+                                            <input type="hidden" name="categoria" value="cds">
                                             <input type="hidden" name="id" value="<%= row[0] %>">
                                             <input type="hidden" name="titulo" value="<%= row[1] %>">
                                             <input type="hidden" name="usuario" value="<%= row[2] %>">
@@ -293,7 +293,7 @@
                                     %>
                                     <td>
                                         <form action="Devolucion.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
+                                            <input type="hidden" name="categoria" value="tesis">
                                             <input type="hidden" name="id" value="<%= row[0] %>">
                                             <input type="hidden" name="titulo" value="<%= row[1] %>">
                                             <input type="hidden" name="usuario" value="<%= row[2] %>">

@@ -14,24 +14,15 @@ import bean.PrestamoBean;
 import database.Conexion;
 
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
 
 public class PrestamoDao {
     public static boolean validate(PrestamoBean bean) {
         try {
-            int[] params = usuarioParams(bean);
-            
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDateTime returnDate = LocalDateTime.now().plusDays(params[1]);
-            
             Connection con = Conexion.establecerConexion();
             
-            PreparedStatement ps = con.prepareStatement("INSERT INTO prestamos_" + bean.getCategoria() + " "
-                    + "(usuario, fecha_devolucion, item_id) VALUES "
-                    + "(?, ?, ?);");
-            ps.setInt(1, params[0]);
-            ps.setString(2, dtf.format(returnDate));
+            PreparedStatement ps = con.prepareStatement("CALL registrar_prestamo(?, ?, ?);");
+            ps.setString(1, bean.getCategoria());
+            ps.setString(2, bean.getUsuario());
             ps.setString(3, bean.getId());
             
             int resultado = ps.executeUpdate();
@@ -41,28 +32,5 @@ public class PrestamoDao {
         } catch (Exception e) { }
         
         return false;
-    }
-    
-    public static int[] usuarioParams(PrestamoBean bean) {
-        try {
-            Connection con = Conexion.establecerConexion();
-            
-            PreparedStatement ps = con.prepareStatement("SELECT U.id, max_prestamos, max_dias FROM usuarios AS U "
-                    + "LEFT JOIN rolparams AS R ON R.rol = U.rol "
-                    + "WHERE U.nombre = ?;");
-            ps.setString(1, bean.getUsuario());
-            
-            ResultSet rs = ps.executeQuery();
-            
-            if (!rs.next())
-                return null;
-            
-            int userId = rs.getInt("id");
-            int maxDias = rs.getInt("max_dias");
-            
-            return new int[] {userId, maxDias};
-        } catch (Exception e) { }
-        
-        return null;
     }
 }
