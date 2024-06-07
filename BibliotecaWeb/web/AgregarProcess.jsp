@@ -6,7 +6,7 @@
 
 <%@include file="WEB-INF/AuthCheck.jspf"%>
 
-<%@page import="bean.AgregarDao"%>
+<%@page import="dao.AgregarDao"%>
 <jsp:useBean id="obj" class="bean.AgregarBean"/>
 
 <jsp:setProperty property="*" name="obj"/>

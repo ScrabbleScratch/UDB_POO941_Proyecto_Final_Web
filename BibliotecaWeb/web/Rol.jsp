@@ -6,7 +6,7 @@
 
 <%@include file="WEB-INF/AuthCheck.jspf"%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import="bean.RolDao"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="dao.RolDao"%>
 <jsp:useBean id="obj" class="bean.RolBean"/>
 
 <jsp:setProperty property="*" name="obj"/>

@@ -4,7 +4,7 @@
     Author     : Mario O.
 --%>
 
-<%@page import="bean.LoginDao"%>
+<%@page import="dao.LoginDao"%>
 <jsp:useBean id="obj" class="bean.LoginBean"/>
 
 <jsp:setProperty property="*" name="obj"/>

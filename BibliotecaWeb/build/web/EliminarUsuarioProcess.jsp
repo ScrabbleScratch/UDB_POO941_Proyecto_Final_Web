@@ -6,7 +6,7 @@
 
 <%@include file="WEB-INF/AuthCheck.jspf"%>
 
-<%@page import="usuario.StatusUsuario, bean.EliminarUsuarioDao"%>
+<%@page import="usuario.StatusUsuario, dao.EliminarUsuarioDao"%>
 
 <%
     String usuario = request.getParameter("usuario");

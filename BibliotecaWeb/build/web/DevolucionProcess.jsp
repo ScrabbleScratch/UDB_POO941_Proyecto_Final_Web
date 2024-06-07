@@ -6,7 +6,7 @@
 
 <%@include file="WEB-INF/AuthCheck.jspf"%>
 
-<%@page import="bean.DevolucionDao"%>
+<%@page import="dao.DevolucionDao"%>
 <jsp:useBean id="obj" class="bean.DevolucionBean"/>
 
 <jsp:setProperty property="*" name="obj"/>

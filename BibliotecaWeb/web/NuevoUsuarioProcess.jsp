@@ -6,7 +6,7 @@
 
 <%@include file="WEB-INF/AuthCheck.jspf"%>
 
-<%@page import="usuario.StatusUsuario, bean.NuevoUsuarioDao"%>
+<%@page import="usuario.StatusUsuario, dao.NuevoUsuarioDao"%>
 <jsp:useBean id="obj" class="bean.UsuarioBean"/>
 
 <jsp:setProperty property="*" name="obj"/>
