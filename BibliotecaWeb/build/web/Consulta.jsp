@@ -96,16 +96,22 @@
                                         String color = disponible ? "btn-success" : "btn-danger";
                                         String disabled = disponible ? "" : "disabled";
                                     %>
-                                    <td>
-                                        <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="libros">
-                                            <input type="hidden" name="id" value="<%= row[0] %>">
-                                            <input type="hidden" name="titulo" value="<%= row[1] %>">
-                                            <button type="submit" class="btn <%= color %> <%= disabled %>">
-                                                Prestar
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <%
+                                        if (session.getAttribute("session") == "TRUE") {
+                                        %>
+                                            <td>
+                                                <form action="Prestar.jsp" method="post">
+                                                    <input type="hidden" name="categoria" value="libros">
+                                                    <input type="hidden" name="id" value="<%= row[0] %>">
+                                                    <input type="hidden" name="titulo" value="<%= row[1] %>">
+                                                    <button type="submit" class="btn <%= color %> <%= disabled %>">
+                                                        Prestar
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        <%
+                                        }
+                                    %>
                                 </tr>
                             <%
                             }
@@ -141,16 +147,22 @@
                                         String color = disponible ? "btn-success" : "btn-danger";
                                         String disabled = disponible ? "" : "disabled";
                                     %>
-                                    <td>
-                                        <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="obras">
-                                            <input type="hidden" name="id" value="<%= row[0] %>">
-                                            <input type="hidden" name="titulo" value="<%= row[1] %>">
-                                            <button type="submit" class="btn <%= color %> <%= disabled %>">
-                                                Prestar
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <%
+                                        if (session.getAttribute("session") == "TRUE") {
+                                        %>
+                                            <td>
+                                                <form action="Prestar.jsp" method="post">
+                                                    <input type="hidden" name="categoria" value="obras">
+                                                    <input type="hidden" name="id" value="<%= row[0] %>">
+                                                    <input type="hidden" name="titulo" value="<%= row[1] %>">
+                                                    <button type="submit" class="btn <%= color %> <%= disabled %>">
+                                                        Prestar
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        <%
+                                        }
+                                    %>
                                 </tr>
                             <%
                             }
@@ -186,16 +198,22 @@
                                         String color = disponible ? "btn-success" : "btn-danger";
                                         String disabled = disponible ? "" : "disabled";
                                     %>
-                                    <td>
-                                        <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="revistas">
-                                            <input type="hidden" name="id" value="<%= row[0] %>">
-                                            <input type="hidden" name="titulo" value="<%= row[1] %>">
-                                            <button type="submit" class="btn <%= color %> <%= disabled %>">
-                                                Prestar
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <%
+                                        if (session.getAttribute("session") == "TRUE") {
+                                        %>
+                                            <td>
+                                                <form action="Prestar.jsp" method="post">
+                                                    <input type="hidden" name="categoria" value="revistas">
+                                                    <input type="hidden" name="id" value="<%= row[0] %>">
+                                                    <input type="hidden" name="titulo" value="<%= row[1] %>">
+                                                    <button type="submit" class="btn <%= color %> <%= disabled %>">
+                                                        Prestar
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        <%
+                                        }
+                                    %>
                                 </tr>
                             <%
                             }
@@ -231,16 +249,22 @@
                                         String color = disponible ? "btn-success" : "btn-danger";
                                         String disabled = disponible ? "" : "disabled";
                                     %>
-                                    <td>
-                                        <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="cds">
-                                            <input type="hidden" name="id" value="<%= row[0] %>">
-                                            <input type="hidden" name="titulo" value="<%= row[1] %>">
-                                            <button type="submit" class="btn <%= color %> <%= disabled %>">
-                                                Prestar
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <%
+                                        if (session.getAttribute("session") == "TRUE") {
+                                        %>
+                                            <td>
+                                                <form action="Prestar.jsp" method="post">
+                                                    <input type="hidden" name="categoria" value="cds">
+                                                    <input type="hidden" name="id" value="<%= row[0] %>">
+                                                    <input type="hidden" name="titulo" value="<%= row[1] %>">
+                                                    <button type="submit" class="btn <%= color %> <%= disabled %>">
+                                                        Prestar
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        <%
+                                        }
+                                    %>
                                 </tr>
                             <%
                             }
@@ -276,16 +300,22 @@
                                         String color = disponible ? "btn-success" : "btn-danger";
                                         String disabled = disponible ? "" : "disabled";
                                     %>
-                                    <td>
-                                        <form action="Prestar.jsp" method="post">
-                                            <input type="hidden" name="categoria" value="tesis">
-                                            <input type="hidden" name="id" value="<%= row[0] %>">
-                                            <input type="hidden" name="titulo" value="<%= row[1] %>">
-                                            <button type="submit" class="btn <%= color %> <%= disabled %>">
-                                                Prestar
-                                            </button>
-                                        </form>
-                                    </td>
+                                    <%
+                                        if (session.getAttribute("session") == "TRUE") {
+                                        %>
+                                            <td>
+                                                <form action="Prestar.jsp" method="post">
+                                                    <input type="hidden" name="categoria" value="tesis">
+                                                    <input type="hidden" name="id" value="<%= row[0] %>">
+                                                    <input type="hidden" name="titulo" value="<%= row[1] %>">
+                                                    <button type="submit" class="btn <%= color %> <%= disabled %>">
+                                                        Prestar
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        <%
+                                        }
+                                    %>
                                 </tr>
                             <%
                             }
