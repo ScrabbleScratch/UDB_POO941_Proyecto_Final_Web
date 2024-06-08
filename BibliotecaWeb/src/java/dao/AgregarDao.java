@@ -17,8 +17,9 @@ import java.sql.*;
 
 public class AgregarDao {
     public static boolean validate(AgregarBean bean) {
+        boolean data = false;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             PreparedStatement ps = null;
             
             switch (bean.getCategoria()) {
@@ -94,15 +95,16 @@ public class AgregarDao {
                     break;
             }
             
-            if (ps == null)
-                return false;
+            if (ps != null) {
+                int resultado = ps.executeUpdate();
             
-            int resultado = ps.executeUpdate();
-            
-            if (resultado > 0)
-                return true;
-        } catch (Exception e) { }
-        
-        return false;
+                if (resultado > 0)
+                    data = true;
+            }
+        } catch (Exception e) {
+            data = false;
+        }
+        Conexion.desconectar();
+        return data;
     }
 }

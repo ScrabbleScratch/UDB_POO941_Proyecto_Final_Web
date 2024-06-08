@@ -466,7 +466,7 @@ BEGIN
 		JOIN usuarios AS U ON U.id = P.usuario
 		JOIN rolparams AS R ON R.rol = U.rol
 		JOIN libros AS I ON I.id = P.item_id
-		WHERE U.nombre = ? AND P.fecha_devuelto IS NULL
+		WHERE CAST(U.nombre AS BINARY) = ? AND P.fecha_devuelto IS NULL
 	) AS P
 	WHERE P.mora_acumulada > 0;
     ");
@@ -568,7 +568,7 @@ END $$
 
 DELIMITER ;
 
--- ELIMINAR USUARIO
+-- CREAR USUARIO
 DELIMITER $$
 
 DROP PROCEDURE IF EXISTS crear_usuario $$
@@ -584,6 +584,21 @@ END $$
 
 DELIMITER ;
 
+-- CAMBIAR CONTRASEÑA USUARIO
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS cambiar_pass $$
+CREATE PROCEDURE cambiar_pass (
+	IN usuario VARCHAR(100),
+    IN pass VARCHAR(100)
+)
+BEGIN
+	UPDATE usuarios SET passwd = pass
+    WHERE CAST(nombre AS BINARY) = usuario;
+END $$
+
+DELIMITER ;
+
 -- ELIMINAR USUARIO
 DELIMITER $$
 
@@ -592,7 +607,7 @@ CREATE PROCEDURE eliminar_usuario (
 	IN usuario VARCHAR(100)
 )
 BEGIN
-	DELETE FROM usuarios WHERE nombre = usuario;
+	DELETE FROM usuarios WHERE CAST(nombre AS BINARY) = usuario;
 END $$
 
 DELIMITER ;

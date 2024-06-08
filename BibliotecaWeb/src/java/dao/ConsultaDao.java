@@ -22,8 +22,9 @@ import database.Conexion;
 
 public class ConsultaDao {
     public static List<String[]> dataCategoria(String categoria) {
+        List<String[]> data;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL consultar_items(?);");
             ps.setString(1, categoria);
@@ -37,7 +38,7 @@ public class ConsultaDao {
                 colNames[i] = rsm.getColumnName(i + 1);
             }
             
-            List<String[]> data = new ArrayList<>();
+            data = new ArrayList<>();
             data.add(colNames);
             
             while (rs.next()) {
@@ -47,16 +48,17 @@ public class ConsultaDao {
                 }
                 data.add(rowData);
             }
-            
-            return data;
-        } catch (Exception e) { }
-        
-        return null;
+        } catch (Exception e) {
+            data = null;
+        }
+        Conexion.desconectar();
+        return data;
     }
     
     public static List<String[]> prestamosCategoria(String categoria, String usuario) {
+        List<String[]> data;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL consultar_prestamos(?, ?);");
             ps.setString(1, categoria);
@@ -71,7 +73,7 @@ public class ConsultaDao {
                 colNames[i] = rsm.getColumnName(i + 1);
             }
             
-            List<String[]> data = new ArrayList<>();
+            data = new ArrayList<>();
             data.add(colNames);
             
             while (rs.next()) {
@@ -81,10 +83,10 @@ public class ConsultaDao {
                 }
                 data.add(rowData);
             }
-            
-            return data;
-        } catch (Exception e) { }
-        
-        return null;
+        } catch (Exception e) {
+            data = null;
+        }
+        Conexion.desconectar();
+        return data;
     }
 }

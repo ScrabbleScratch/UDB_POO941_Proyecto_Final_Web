@@ -17,8 +17,9 @@ import java.sql.*;
 
 public class CambiarPassDao {
     public static boolean validate(LoginBean bean) {
+        boolean data = false;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL cambiar_pass(?, ?);");
             ps.setString(1, bean.getUsuario());
@@ -27,9 +28,11 @@ public class CambiarPassDao {
             int result = ps.executeUpdate();
             
             if (result > 0)
-                return true;
-        } catch (Exception e) { }
-        
-        return false;
+                data = true;
+        } catch (Exception e) {
+            data = false;
+        }
+        Conexion.desconectar();
+        return data;
     }
 }

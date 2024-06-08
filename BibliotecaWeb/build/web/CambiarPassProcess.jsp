@@ -30,7 +30,7 @@
     } else {
     %>
         <jsp:forward page="Usuarios.jsp">
-            <jsp:param name="passErr" value="la contraseña del usuario no pudo ser cambiada" />
+            <jsp:param name="passErr" value=":a contraseña del usuario no pudo ser cambiada" />
             <jsp:param name="tab" value="2" />
         </jsp:forward>
     <%

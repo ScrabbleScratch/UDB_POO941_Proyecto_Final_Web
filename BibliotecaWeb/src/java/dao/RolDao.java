@@ -17,8 +17,9 @@ import java.sql.*;
 
 public class RolDao {
     public static boolean validate(RolBean bean) {
+        boolean data = false;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL actualizar_rol(?, ?, ?, ?);");
             ps.setString(1, bean.getId());
@@ -29,15 +30,18 @@ public class RolDao {
             int result = ps.executeUpdate();
             
             if (result > 0)
-                return true;
-        } catch (Exception e) { }
-        
-        return false;
+                data = true;
+        } catch (Exception e) {
+            data = false;
+        }
+        Conexion.desconectar();
+        return data;
     }
     
     public static RolBean fetch(RolBean bean) {
+        RolBean data = null;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL consultar_rol(?);");
             ps.setString(1, bean.getId());
@@ -50,10 +54,12 @@ public class RolDao {
                 bean.setDias(rs.getString("max_dias"));
                 bean.setMora(rs.getString("mora_diaria"));
                 
-                return bean;
+                data = bean;
             }
-        } catch (Exception e) { }
-        
-        return null;
+        } catch (Exception e) {
+            data = null;
+        }
+        Conexion.desconectar();
+        return data;
     }
 }

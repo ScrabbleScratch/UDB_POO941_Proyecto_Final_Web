@@ -9,21 +9,23 @@ package database;
  * @author Mario O.
  */
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import javax.swing.JOptionPane;
+import java.sql.*;
 
 public class Conexion {
     private static Connection con;
     
-    public static Connection establecerConexion() {
+    public static Connection conectar() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "biblioteca", "biblioteca");
             //JOptionPane.showMessageDialog(null,"Conexión exitosa con la base de datos");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No es posible conectar con la base de datos" + e.toString());
-        }
+        } catch (Exception e) { }
         return con;
+    }
+    
+    public static void desconectar() {
+        try {
+            con.close();
+        } catch (Exception e) { }
     }
 }

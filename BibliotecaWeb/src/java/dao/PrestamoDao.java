@@ -17,8 +17,9 @@ import java.sql.*;
 
 public class PrestamoDao {
     public static boolean validate(PrestamoBean bean) {
+        boolean data = false;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL registrar_prestamo(?, ?, ?);");
             ps.setString(1, bean.getCategoria());
@@ -28,9 +29,11 @@ public class PrestamoDao {
             int resultado = ps.executeUpdate();
             
             if (resultado > 0)
-                return true;
-        } catch (Exception e) { }
-        
-        return false;
+                data = true;
+        } catch (Exception e) {
+            data = false;
+        }
+        Conexion.desconectar();
+        return data;
     }
 }

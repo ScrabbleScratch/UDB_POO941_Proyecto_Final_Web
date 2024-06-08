@@ -19,17 +19,20 @@ public class LoginDao {
     public static String validate(LoginBean bean) {
         String role = null;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL validar_usuario(?, ?);");
             ps.setString(1, bean.getUsuario());
             ps.setString(2, bean.getPass());
             
             ResultSet rs = ps.executeQuery();
+            
             if (rs.next())
                 role = rs.getString("rol");
-        } catch (Exception e) { }
-        
+        } catch (Exception e) {
+            role = null;
+        }
+        Conexion.desconectar();
         return role;
     }
 }

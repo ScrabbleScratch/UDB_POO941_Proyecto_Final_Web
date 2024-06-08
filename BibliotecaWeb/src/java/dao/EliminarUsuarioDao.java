@@ -16,8 +16,9 @@ import java.sql.*;
 
 public class EliminarUsuarioDao {
     public static boolean validate(String usuario) {
+        boolean data = false;
         try {
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL eliminar_usuario(?);");
             ps.setString(1, usuario);
@@ -25,9 +26,11 @@ public class EliminarUsuarioDao {
             int result = ps.executeUpdate();
             
             if (result > 0)
-                return true;
-        } catch (Exception e) { }
-        
-        return false;
+                data = true;
+        } catch (Exception e) {
+            data = false;
+        }
+        Conexion.desconectar();
+        return data;
     }
 }

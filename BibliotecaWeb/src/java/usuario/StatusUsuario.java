@@ -11,6 +11,7 @@ package usuario;
  * @author Mario O.
  */
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -46,12 +47,15 @@ public class StatusUsuario {
     }
     
     public static StatusUsuario usuarioStatus(String username) {
+        StatusUsuario data = null;
         try {
+            Connection con = Conexion.conectar();
+            
             String consulta = "SELECT U.id, U.nombre, U.rol, R.max_prestamos, R.max_dias, R.mora_diaria "
                     + "FROM usuarios AS U "
                     + "JOIN rolparams AS R ON R.rol = U.rol "
-                    + "WHERE U.nombre = ?;";
-            PreparedStatement ps = Conexion.establecerConexion().prepareStatement(consulta);
+                    + "WHERE CAST(U.nombre AS BINARY) = ?;";
+            PreparedStatement ps = con.prepareStatement(consulta);
             ps.setString(1, username);
             ResultSet usrRs = ps.executeQuery();
             if (usrRs.next()) {
@@ -60,15 +64,15 @@ public class StatusUsuario {
                     consulta = "SELECT COUNT(*) AS prestamos_activos "
                         + "FROM usuarios AS U "
                         + "JOIN prestamos_" + table + " AS P ON P.usuario = U.id "
-                        + "WHERE U.nombre = ? AND P.fecha_devuelto IS NULL;";
-                    ps = Conexion.establecerConexion().prepareStatement(consulta);
+                        + "WHERE CAST(U.nombre AS BINARY) = ? AND P.fecha_devuelto IS NULL;";
+                    ps = con.prepareStatement(consulta);
                     ps.setString(1, username);
                     ResultSet rentsRs = ps.executeQuery();
                     if (rentsRs.next())
                         activeRents += rentsRs.getInt("prestamos_activos");
                 }
                 
-                return new StatusUsuario( 
+                data = new StatusUsuario( 
                     usrRs.getString("id"),
                     usrRs.getString("nombre"),
                     usrRs.getInt("rol"),
@@ -78,17 +82,22 @@ public class StatusUsuario {
                     activeRents
                 );
             }
-        } catch (Exception e) { }
-        
-        return null;
+        } catch (Exception e) {
+            data = null;
+        }
+        Conexion.desconectar();
+        return data;
     }
     
     private static Map<String, String[]> moraAcumulada(String username) {
+        Map<String, String[]> results = null;
         try {
-            Map<String, String[]> results = new HashMap<>();
+            Connection con = Conexion.conectar();
+            
+            results = new HashMap<>();
             String[] total = new String[] { "0", "0" };
             for (String category : new String[] { "libros", "obras", "revistas", "cds", "tesis" }) {
-                PreparedStatement ps = Conexion.establecerConexion().prepareStatement("CALL mora_usuario(?, ?);");
+                PreparedStatement ps = con.prepareStatement("CALL mora_usuario(?, ?);");
                 ps.setString(1, category);
                 ps.setString(2, username);
                 ResultSet rs = ps.executeQuery();
@@ -106,10 +115,10 @@ public class StatusUsuario {
             }
             total[1] = "$" + total[1];
             results.put("total", total);
-            
-            return results;
-        } catch (Exception e) { }
-        
-        return null;
+        } catch (Exception e) {
+            results = null;
+        }
+        Conexion.desconectar();
+        return results;
     }
 }

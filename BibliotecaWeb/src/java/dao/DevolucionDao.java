@@ -19,10 +19,11 @@ import java.time.LocalDateTime;
 
 public class DevolucionDao {
     public static boolean validate(DevolucionBean bean) {
+        boolean data = false;
         try {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             
-            Connection con = Conexion.establecerConexion();
+            Connection con = Conexion.conectar();
             
             PreparedStatement ps = con.prepareStatement("CALL devolver_item(?, ?, ?);");
             ps.setString(1, bean.getCategoria());
@@ -32,9 +33,11 @@ public class DevolucionDao {
             int resultado = ps.executeUpdate();
             
             if (resultado > 0)
-                return true;
-        } catch (Exception e) { }
-        
-        return false;
+                data = true;
+        } catch (Exception e) {
+            data = false;
+        }
+        Conexion.desconectar();
+        return data;
     }
 }
