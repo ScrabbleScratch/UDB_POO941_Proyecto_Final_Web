@@ -8,6 +8,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="dao.ConsultaDao, java.util.*"%>
 
+<% pageContext.setAttribute("page", "prestamos"); %>
+
 <%
     String buscar = request.getParameter("buscar") == null ? "" : request.getParameter("buscar");
     

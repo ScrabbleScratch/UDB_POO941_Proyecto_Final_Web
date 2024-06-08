@@ -9,16 +9,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="Consulta.jsp">Consultar Items</a>
+                    <a class="nav-link ${pageContext.getAttribute("page") == "consulta" ? "active" : ""}" href="Consulta.jsp">Consultar Items</a>
                 </li>
                 <%
                     if (session.getAttribute("session") == "TRUE") {
                 %>
                 <li class="nav-item">
-                    <a class="nav-link" href="Prestamos.jsp">Consultar Préstamos</a>
+                    <a class="nav-link ${pageContext.getAttribute("page") == "prestamos" ? "active" : ""}" href="Prestamos.jsp">Consultar Préstamos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="Usuarios.jsp">Gestionar Usuarios</a>
+                    <a class="nav-link ${pageContext.getAttribute("page") == "usuarios" ? "active" : ""}" href="Usuarios.jsp">Gestionar Usuarios</a>
                 </li>
                 <%
                     }

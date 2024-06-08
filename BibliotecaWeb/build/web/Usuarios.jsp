@@ -7,6 +7,9 @@
 <%@include file="WEB-INF/AuthCheck.jspf"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% pageContext.setAttribute("page", "usuarios"); %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

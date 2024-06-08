@@ -8,6 +8,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" import="dao.ConsultaDao, java.util.*"%>
 
+<% pageContext.setAttribute("page", "consulta"); %>
+
 <%
     List<String[]> librosData, obrasData, revistasData, cdsData, tesisData;
     librosData = ConsultaDao.dataCategoria("libros");
