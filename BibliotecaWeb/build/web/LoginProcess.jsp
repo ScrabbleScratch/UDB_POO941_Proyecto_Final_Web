@@ -10,18 +10,17 @@
 <jsp:setProperty property="*" name="obj"/>
 
 <%
-    String role = LoginDao.validate(obj);
-    if (role != null) {
+    boolean admin = LoginDao.validate(obj);
+    if (admin) {
         session.setAttribute("session", "TRUE");
-        session.setAttribute("user_role", role);
-%>
+    %>
         <jsp:forward page="Consulta.jsp"/>
-<%
+    <%
     } else {
-%>
+    %>
         <jsp:forward page="Login.jsp">
             <jsp:param name="logErr" value="Credenciales inválidas" />
         </jsp:forward>
-<%        
+    <%        
     }
 %>

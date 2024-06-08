@@ -16,8 +16,8 @@ import database.Conexion;
 import java.sql.*;
 
 public class LoginDao {
-    public static String validate(LoginBean bean) {
-        String role = null;
+    public static boolean validate(LoginBean bean) {
+        boolean admin = false;
         try {
             Connection con = Conexion.conectar();
             
@@ -28,11 +28,11 @@ public class LoginDao {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next())
-                role = rs.getString("rol");
+                admin = rs.getString("rol").equals("1");
         } catch (Exception e) {
-            role = null;
+            admin = false;
         }
         Conexion.desconectar();
-        return role;
+        return admin;
     }
 }
