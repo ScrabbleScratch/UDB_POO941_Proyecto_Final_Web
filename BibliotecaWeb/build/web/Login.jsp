@@ -13,13 +13,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
+    <%@include file="WEB-INF/Navbar.jspf"%>
     <div class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh;">
         <!--<h2>Iniciar Sesión</h2>-->
         <div class="title-container d-flex align-items-center justify-content-between">
             <h1>
-                <button type="button" class="btn btn-lg" onclick="location.href='/BibliotecaWeb'">
+<!--                <button type="button" class="btn btn-lg" onclick="location.href='/BibliotecaWeb'">
                     <i class="bi bi-arrow-left-square"></i>
-                </button>
+                </button>-->
                 Iniciar Sesión
             </h1>
         </div>

@@ -25,14 +25,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
+    <%@include file="WEB-INF/Navbar.jspf"%>
     <div class="container">
-        <div class="title-container">
+        <div class="title-container d-flex align-items-center justify-content-between">
             <h1>
-                <button type="button" class="btn btn-lg" onclick="location.href='Menu.jsp'">
+<!--                <button type="button" class="btn btn-lg" onclick="location.href='Menu.jsp'">
                     <i class="bi bi-arrow-left-square"></i>
-                </button>
+                </button>-->
                 Consultas
             </h1>
+            <a href="Agregar.jsp" class="btn btn-outline-info">
+                Agregar Items
+            </a>
         </div>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">

@@ -15,7 +15,7 @@
         session.setAttribute("session", "TRUE");
         session.setAttribute("user_role", role);
 %>
-        <jsp:forward page="Menu.jsp"/>
+        <jsp:forward page="Consulta.jsp"/>
 <%
     } else {
 %>

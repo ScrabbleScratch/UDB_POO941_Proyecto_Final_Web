@@ -15,11 +15,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
+    <%@include file="WEB-INF/Navbar.jspf"%>
     <div class="container">
         <h1>
-            <button type="button" class="btn btn-lg" onclick="location.href='Menu.jsp'">
+<!--            <button type="button" class="btn btn-lg" onclick="location.href='Menu.jsp'">
                 <i class="bi bi-arrow-left-square"></i>
-            </button>
+            </button>-->
             Gestionar Usuarios
         </h1>
         <div class="row">
