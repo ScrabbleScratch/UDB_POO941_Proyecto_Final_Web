@@ -7,7 +7,7 @@ package dao;
 
 /**
  *
- * @author Mario O.
+ * @author Elizabeth L.
  */
 
 import bean.LoginBean;

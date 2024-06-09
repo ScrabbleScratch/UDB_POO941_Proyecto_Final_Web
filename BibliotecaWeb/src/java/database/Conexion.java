@@ -18,7 +18,6 @@ public class Conexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca", "biblioteca", "biblioteca");
-            //JOptionPane.showMessageDialog(null,"Conexión exitosa con la base de datos");
         } catch (Exception e) { }
         return con;
     }

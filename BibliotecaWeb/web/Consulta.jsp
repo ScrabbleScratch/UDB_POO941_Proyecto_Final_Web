@@ -36,9 +36,15 @@
                 </button>-->
                 Consultas
             </h1>
-            <a href="Agregar.jsp" class="btn btn-outline-info">
-                Agregar Items
-            </a>
+            <%
+                if (session.getAttribute("session") == "TRUE") {
+                %>
+                    <a href="Agregar.jsp" class="btn btn-outline-info">
+                        Agregar Items
+                    </a>
+                <%
+                }
+            %>
         </div>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">

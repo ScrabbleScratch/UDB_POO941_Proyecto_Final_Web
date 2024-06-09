@@ -22,7 +22,7 @@ import database.Conexion;
 
 public class ConsultaDao {
     public static List<String[]> dataCategoria(String categoria) {
-        List<String[]> data;
+        List<String[]> data = null;
         try {
             Connection con = Conexion.conectar();
             

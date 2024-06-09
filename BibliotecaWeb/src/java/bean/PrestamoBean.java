@@ -7,7 +7,7 @@ package bean;
 
 /**
  *
- * @author Mario O.
+ * @author Miguel A.
  */
 public class PrestamoBean {
     private String categoria, id, usuario;

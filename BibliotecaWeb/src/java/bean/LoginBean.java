@@ -7,7 +7,7 @@ package bean;
 
 /**
  *
- * @author Mario O.
+ * @author Elizabeth L.
  */
 public class LoginBean {
     private String usuario, pass;

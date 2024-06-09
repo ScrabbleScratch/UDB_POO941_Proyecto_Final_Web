@@ -7,7 +7,7 @@ package bean;
 
 /**
  *
- * @author Mario O.
+ * @author Elizabeth L.
  */
 public class AgregarBean {
     private String categoria, titulo, autor, tipo, editorial, identificacion, publicacion, edicion, duracion, unidades, estante, tags;

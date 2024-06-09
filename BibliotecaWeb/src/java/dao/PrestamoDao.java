@@ -7,7 +7,7 @@ package dao;
 
 /**
  *
- * @author Mario O.
+ * @author Miguel A.
  */
 
 import bean.PrestamoBean;

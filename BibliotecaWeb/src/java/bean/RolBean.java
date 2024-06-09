@@ -7,7 +7,7 @@ package bean;
 
 /**
  *
- * @author Mario O.
+ * @author Miguel A.
  */
 public class RolBean {
     private String id, nombre, descripcion, prestamos, dias, mora;

@@ -7,7 +7,7 @@ package bean;
 
 /**
  *
- * @author Mario O.
+ * @author Miguel A.
  */
 public class UsuarioBean {
     private String usuario, pass, rol;
